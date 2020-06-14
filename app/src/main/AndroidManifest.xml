@@ -2,7 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mobile.demo.resultapiwithhiltannonation">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <permission android:name="mobile.demo.resultapiwithhiltannonation.fileprovider.READ" />
+
+    <uses-permission android:name="mobile.demo.resultapiwithhiltannonation.fileprovider.READ" />
+
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +28,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="mobile.demo.resultapiwithhiltannonation.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:readPermission="mobile.demo.resultapiwithhiltannonation.fileprovider.READ">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
+
+
 
 </manifest>

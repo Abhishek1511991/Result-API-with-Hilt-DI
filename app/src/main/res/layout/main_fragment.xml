@@ -7,14 +7,49 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
 
-    <TextView
-        android:id="@+id/message"
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/take_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MainFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
+        android:text="Take Picture Result API - Type 1"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/take_pic_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/take_pic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
+        android:text="Take Picture Result API - Type 2"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/take_pic_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/take_pic_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
+        android:text="Show pic from internet with help of HItz DI"/>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/set_pic"
+        app:layout_constraintTop_toBottomOf="@+id/take_pic_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/rounded_corner"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
