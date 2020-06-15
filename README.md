@@ -314,4 +314,5 @@ Cheat sheet
 This cheat sheet allows you to quickly see what the different Hilt and Dagger annotations do and how to use them.
 Download cheat sheet in PDF
 
-Hilt and Dagger annotations cheat sheet. Download in PDF here.
+Hilt and Dagger annotations cheat sheet. Download from below link:
+https://developer.android.com/images/training/dependency-injection/hilt-annotations.pdf
