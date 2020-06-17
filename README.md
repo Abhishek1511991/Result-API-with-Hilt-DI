@@ -242,7 +242,7 @@ startForResult.launch(Intent(this, ResultProducingActivity::class.java))
 
 # Hilt DI Uses
 
-======
+
 ![Banner](https://github.com/MindorksOpenSource/Dagger-Hilt-Tutorial/raw/master/assets/banner-dagger-hilt.png)
 
 Dependency Injection on Android with Hilt
@@ -263,24 +263,30 @@ Best of all, as Dagger and Hilt can coexist together, apps can be migrated on an
 
 Hilt in action
 Just to show you how easy to use Hilt is, let’s perform some quick DI in a typical Android app. Let’s make Hilt inject an AnalyticsAdapter into our MainActivity.
+
 First, enable Hilt in your app by annotating your application class with the @HiltAndroidApp to trigger Hilt’s code generation:
 
 
 @HiltAndroidApp
 class MyApplication : Application() { ... }
-Second, tell Hilt how to provide instances of AnalyticsAdapter by annotating its constructor with @Inject:
+
+Second, tell Hilt how to provide instances of AnalyticsAdapter by annotating its constructor with 
+
+@Inject:
 class AnalyticsAdapter @Inject constructor() { ... }
 
 And third, to inject an instance of AnalyticsAdapter into MainActivity, enable Hilt in the activity with the @AndroidEntryPoint annotation and perform field injection using the @Inject annotation:
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
   @Inject lateinit var analytics: AnalyticsAdapter
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     // analytics instance has been populated by Hilt
     // and it's ready to be used
   }
+  
 }
 
 For more information, you can easily check out what the new annotations do in the cheat sheet section below.
@@ -292,11 +298,11 @@ For example, to inject a Architecture Components ViewModel LoginViewModel into a
 with @ViewModelInject and use it in the activity or fragment as you’d expect:
 
 
-class LoginViewModel @ViewModelInject constructor(
-  private val analyticsAdapter: AnalyticsAdapter
-): ViewModel { ... }
+class LoginViewModel @ViewModelInject constructor(private val analyticsAdapter: AnalyticsAdapter)
+       : ViewModel { ... }
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+
   private val loginViewModel: LoginViewModel by viewModels()
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
