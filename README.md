@@ -7,7 +7,6 @@
 ## Related link ->
  
 * https://github.com/ParkSangGwon/TedPermission
-
 * https://medium.com/mindorks/multiple-runtime-permissions-in-android-without-any-third-party-libraries-53ccf7550d0
 
 
