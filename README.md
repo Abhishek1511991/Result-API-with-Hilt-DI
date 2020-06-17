@@ -1,23 +1,28 @@
 # Result API with Hilt DI
+
+![Banner](https://miro.medium.com/max/2000/1*TOG-YFLT7ygUHUHkcz7I8A.jpeg)
+
  This is demo app to test Result API and HIlt DI uses
 
 ## Related link ->
  
-https://github.com/ParkSangGwon/TedPermission  -- Multiple Run Time Library 
-https://medium.com/mindorks/multiple-runtime-permissions-in-android-without-any-third-party-libraries-53ccf7550d0  -- 
+* https://github.com/ParkSangGwon/TedPermission
+
+* https://medium.com/mindorks/multiple-runtime-permissions-in-android-without-any-third-party-libraries-53ccf7550d0
+
 
 ## Multiple Run Time Library 
-https://developer.android.com/training/basics/intents/result
-https://android.jlelse.eu/activity-results-api-69be5a225e86   ***** 
-https://adambennett.dev/2020/03/introducing-the-activity-result-apis/   *** Adavance Demo
-https://www.signom.com/api/rest/docs/
+* https://developer.android.com/training/basics/intents/result
+* https://android.jlelse.eu/activity-results-api-69be5a225e86   ***** 
+* https://adambennett.dev/2020/03/introducing-the-activity-result-apis/   *** Adavance Demo
+* https://www.signom.com/api/rest/docs/
 
 
 
 ## For Runtime Permission :
 
-https://medium.com/mindorks/multiple-runtime-permissions-in-android-without-any-third-party-libraries-53ccf7550d0
-https://github.com/ParkSangGwon/TedPermission
+* https://medium.com/mindorks/multiple-runtime-permissions-in-android-without-any-third-party-libraries-53ccf7550d0
+* https://github.com/ParkSangGwon/TedPermission
 
 # Result API Study
 Getting a result from an activity
@@ -38,8 +43,9 @@ An ActivityResultContract defines the input type needed to produce a result alon
 
 ActivityResultCallback is a single method interface with an onActivityResult() method that takes an object of the output type defined in the ActivityResultContract:
 
-KOTLIN
-JAVA
+* KOTLIN
+* JAVA
+
 val getContent = registerForActivityResult(GetContent()) 
 { 
  uri: Uri? ->
@@ -51,7 +57,8 @@ If you have multiple activity result calls that either use different contracts o
 registerForActivityResult() is safe to call before your fragment or activity is created, allowing it to be used directly when declaring member variables for the returned ActivityResultLauncher instances.
 
 Note: While it is safe to call registerForActivityResult() before your fragment or activity is created, you cannot launch the ActivityResultLauncher until the fragment or activity's Lifecycle has reached CREATED.
-Launching an activity for result
+
+** Launching an activity for result
 While registerForActivityResult() registers your callback, it does not launch the other activity and kick off the request for a result. Instead, this is the responsibility of the returned ActivityResultLauncher instance.
 
 If input exists, the launcher takes the input that matches the type of the ActivityResultContract. Calling launch() starts the process of producing the result. When the user is done with the subsequent activity and returns, the onActivityResult() from the ActivityResultCallback is then executed, as shown in the following example:
@@ -70,75 +77,88 @@ override fun onCreate(savedInstanceState: Bundle?) {
 val selectButton = findViewById<Button>(R.id.select_button)
 
 selectButton.setOnClickListener {
-// Pass in the mime type you'd like to allow the user to select
-// as the input
+
+// Pass in the mime type you'd like to allow the user to select as the input
+
 getContent.launch("image/*")
 }
 }
 
 An overloaded version of launch() allows you to pass an ActivityOptionsCompat in addition to the input.
 
-Note: Since your process and activity can be destroyed between when you call launch() and when the onActivityResult() callback is triggered, any additional state needed to handle the result must be saved and restored separately from these APIs.
-Receiving an activity result in a separate class
+** Note: Since your process and activity can be destroyed between when you call launch() and when the onActivityResult() callback is triggered, any additional state needed to handle the result must be saved and restored separately from these APIs.
+
+** Receiving an activity result in a separate class
+
 While the ComponentActivity and Fragment classes implement the ActivityResultCaller interface to allow you to use the registerForActivityResult() APIs, you can also receive the activity result in a separate class that does not implement ActivityResultCaller by using ActivityResultRegistry directly.
 
 For example, you might want to implement a LifecycleObserver that handles registering a contract along with launching the launcher:
 
-KOTLIN
-JAVA
-class MyLifecycleObserver(private val registry : ActivityResultRegistry)
+** KOTLIN
+** JAVA
+
+class MyLifecycleObserver( 
+private val registry : ActivityResultRegistry)
 : DefaultLifecycleObserver {
 
 lateinit var getContent : ActivityResultLauncher<String>
 
 override fun onCreate(owner: LifecycleOwner) {
 
-getContent = registry.register("key", owner, GetContent()) { uri ->
-// Handle the returned Uri
+getContent = registry. 
+register("key", owner, GetContent()) 
+{ 
+ uri ->// Handle the returned Uri
+ 
 }
 
 }
 
 fun selectImage() {
+
 getContent.launch("image/*")
 }
+
 }
 
 class MyFragment : Fragment() {
 
 lateinit var observer : MyLifecycleObserver
 
-override fun onCreate(savedInstanceState: Bundle?) {
+override fun onCreate(savedInstanceState: Bundle?) 
+{
 // ...
 
 observer = MyLifecycleObserver(requireActivity().activityResultRegistry)
 lifecycle.addObserver(observer)
 }
 
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) 
+{
 val selectButton = view.findViewById<Button>(R.id.select_button)
 
-selectButton.setOnClickListener {
+selectButton.setOnClickListener 
+{
 // Open the activity to select an image
-observer.selectImage()
+ observer.selectImage()
 }
 }
 }
 
 When using the ActivityResultRegistry APIs, it's strongly recommended to use the APIs that take a LifecycleOwner, as the LifecycleOwner automatically removes your registered launcher when the Lifecycle is destroyed. However, in cases where a LifecycleOwner is not available, each ActivityResultLauncher class allows you to manually call unregister() as an alternative.
 
-Testing
 By default, registerForActivityResult() automatically uses the ActivityResultRegistry provided by the activity. It also provides an overload that allows you to pass in your own instance of ActivityResultRegistry that can be used to test your activity result calls without actually launching another activity.
 
 When Testing your app’s fragments, providing a test ActivityResultRegistry can be done by using a FragmentFactory to pass in the ActivityResultRegistry to the fragment’s constructor.
 
-Note: Any mechanism that allows you to inject a separate ActivityResultRegistry in tests is enough to enable testing your activity result calls.
+** Note: Any mechanism that allows you to inject a separate ActivityResultRegistry in tests is enough to enable testing your activity result calls.
 For example, a fragment that uses the TakePicturePreview contract to get a thumbnail of the image might be written similar to the following:
 
 KOTLIN
 JAVA
 class MyFragment(
-private val registry: ActivityResultRegistry) : Fragment() {
+private val registry: ActivityResultRegistry) : 
+Fragment() {
 
 val thumbnailLiveData = MutableLiveData<Bitmap?>
 
@@ -155,10 +175,12 @@ When creating a test specific ActivityResultRegistry, you must implement the onL
 val testRegistry = object : ActivityResultRegistry() 
 {
 
-override fun <I, O> onLaunch(
-requestCode: Int,
+override fun <I, O> onLaunch(requestCode: Int,
+
 contract: ActivityResultContract<I, O>,
+
 input: I,
+
 options: ActivityOptionsCompat?
 ) 
 
@@ -175,7 +197,8 @@ fun activityResultTest {
 val expectedResult = Bitmap.createBitmap(1, 1, Bitmap.Config.RGBA_F16)
 
 // Create the test ActivityResultRegistry
-val testRegistry = object : ActivityResultRegistry() {
+val testRegistry = object : ActivityResultRegistry() 
+{
 override fun <I, O> onLaunch(
 requestCode: Int,
 contract: ActivityResultContract<I, O>,
@@ -187,17 +210,23 @@ dispatchResult(requestCode, expectedResult)
 }
 }
 
-// Use the launchFragmentInContainer method that takes a
-// lambda to construct the Fragment with the testRegistry
-with(launchFragmentInContainer { MyFragment(testRegistry) }) 
+** Use the launchFragmentInContainer method that takes a
+** lambda to construct the Fragment with the testRegistry
+
+with(launchFragmentInContainer 
+{ 
+
+MyFragment(testRegistry) }) 
 {
-onFragment { fragment ->
-// Trigger the ActivityResultLauncher
+onFragment { fragment ->. // Trigger the ActivityResultLauncher
+
 fragment.takePicture()
+
 // Verify the result is set
 assertThat(fragment.thumbnailLiveData.value)
 .isSameInstanceAs(expectedResult)
-}
+} 
+
 }
 }
 
@@ -234,8 +263,8 @@ return result?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
 
 If you do not need a custom contract, you can use the StartActivityForResult contract. This is a generic contract that takes any Intent as an input and returns an ActivityResult, allowing you to extract the resultCode and Intent as part of your callback, as shown in the following example:
 
-KOTLIN
-JAVA
+** KOTLIN
+** JAVA
 val startForResult = registerForActivityResult(StartActivityForResult()) 
 { 
 result: ActivityResult ->
@@ -252,7 +281,9 @@ val startButton = findViewById(R.id.start_button)
 
 startButton.setOnClickListener {
 // Use the Kotlin extension in activity-ktx
+
 // passing it the Intent you want to start
+
 startForResult.launch(Intent(this, ResultProducingActivity::class.java))
 }
 }
