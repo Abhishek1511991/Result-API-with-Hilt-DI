@@ -348,24 +348,24 @@ Using Hilt in your Android app
 
 
 # Hilt and Dagger annotations cheat sheet. Download from below link:
-https://developer.android.com/images/training/dependency-injection/hilt-annotations.pdf
-https://dagger.dev/hilt/components ***
-https://www.techyourchance.com/dagger-hilt/
-https://dev.to/anandpushkar088/experimenting-with-dagger-hilt-3e80
-https://joebirch.co/android/exploring-dagger-hilt-an-introduction/
-https://github.com/MindorksOpenSource/Dagger-Hilt-Tutorial
-https://blog.mindorks.com/dagger-hilt-tutorial
-https://proandroiddev.com/exploring-dagger-hilt-and-whats-main-differences-with-dagger-android-c8c54cd92f18
-https://dagger.dev/hilt/ ***
-https://codelabs.developers.google.com/codelabs/android-dagger-to-hilt/#0
-https://medium.com/androiddevelopers/dependency-injection-on-android-with-hilt-67b6031e62d
-https://developer.android.com/training/dependency-injection/hilt-android
-https://developer.android.com/training/dependency-injection/hilt-jetpack
+* https://developer.android.com/images/training/dependency-injection/hilt-annotations.pdf
+* https://dagger.dev/hilt/components ***
+* https://www.techyourchance.com/dagger-hilt/
+* https://dev.to/anandpushkar088/experimenting-with-dagger-hilt-3e80
+* https://joebirch.co/android/exploring-dagger-hilt-an-introduction/
+* https://github.com/MindorksOpenSource/Dagger-Hilt-Tutorial
+* https://blog.mindorks.com/dagger-hilt-tutorial
+* https://proandroiddev.com/exploring-dagger-hilt-and-whats-main-differences-with-dagger-android-c8c54cd92f18
+* https://dagger.dev/hilt/ ***
+* https://codelabs.developers.google.com/codelabs/android-dagger-to-hilt/#0
+* https://medium.com/androiddevelopers/dependency-injection-on-android-with-hilt-67b6031e62d
+* https://developer.android.com/training/dependency-injection/hilt-android
+* https://developer.android.com/training/dependency-injection/hilt-jetpack
 
 # Hilt demo
-https://github.com/pushkar-anand/hilt-demo
-https://github.com/MindorksOpenSource/Dagger-Hilt-Tutorial
-https://github.com/android/architecture-samples
+* https://github.com/pushkar-anand/hilt-demo
+* https://github.com/MindorksOpenSource/Dagger-Hilt-Tutorial
+* https://github.com/android/architecture-samples
 
 
 
