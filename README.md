@@ -1,10 +1,12 @@
 # Result API with Hilt DI
  This is demo app to test Result API and HIlt DI uses
 
-Related link ->
+## Related link ->
  
 https://github.com/ParkSangGwon/TedPermission  -- Multiple Run Time Library 
-https://medium.com/mindorks/multiple-runtime-permissions-in-android-without-any-third-party-libraries-53ccf7550d0  -- Multiple Run Time Library 
+https://medium.com/mindorks/multiple-runtime-permissions-in-android-without-any-third-party-libraries-53ccf7550d0  -- 
+
+## Multiple Run Time Library 
 https://developer.android.com/training/basics/intents/result
 https://android.jlelse.eu/activity-results-api-69be5a225e86   ***** 
 https://adambennett.dev/2020/03/introducing-the-activity-result-apis/   *** Adavance Demo
@@ -12,7 +14,7 @@ https://www.signom.com/api/rest/docs/
 
 
 
-For Runtime Permission :
+## For Runtime Permission :
 
 https://medium.com/mindorks/multiple-runtime-permissions-in-android-without-any-third-party-libraries-53ccf7550d0
 https://github.com/ParkSangGwon/TedPermission
@@ -38,7 +40,9 @@ ActivityResultCallback is a single method interface with an onActivityResult() m
 
 KOTLIN
 JAVA
-val getContent = registerForActivityResult(GetContent()) { uri: Uri? ->
+val getContent = registerForActivityResult(GetContent()) 
+{ 
+ uri: Uri? ->
 // Handle the returned Uri
 }
 
@@ -54,7 +58,9 @@ If input exists, the launcher takes the input that matches the type of the Activ
 
 KOTLIN
 JAVA
-val getContent = registerForActivityResult(GetContent()) { uri: Uri? ->
+val getContent = registerForActivityResult(GetContent()) 
+{ 
+uri: Uri? ->
 // Handle the returned Uri
 }
 
@@ -82,12 +88,15 @@ KOTLIN
 JAVA
 class MyLifecycleObserver(private val registry : ActivityResultRegistry)
 : DefaultLifecycleObserver {
+
 lateinit var getContent : ActivityResultLauncher<String>
 
 override fun onCreate(owner: LifecycleOwner) {
+
 getContent = registry.register("key", owner, GetContent()) { uri ->
 // Handle the returned Uri
 }
+
 }
 
 fun selectImage() {
@@ -96,6 +105,7 @@ getContent.launch("image/*")
 }
 
 class MyFragment : Fragment() {
+
 lateinit var observer : MyLifecycleObserver
 
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,12 +138,13 @@ For example, a fragment that uses the TakePicturePreview contract to get a thumb
 KOTLIN
 JAVA
 class MyFragment(
-private val registry: ActivityResultRegistry
-) : Fragment() {
+private val registry: ActivityResultRegistry) : Fragment() {
+
 val thumbnailLiveData = MutableLiveData<Bitmap?>
 
-val takePicture = registerForActivityResult(TakePicturePreview(), registry) {
-bitmap: Bitmap? -> thumbnailLiveData.setValue(bitmap)
+val takePicture = registerForActivityResult(TakePicturePreview(), registry) 
+{
+   bitmap: Bitmap? -> thumbnailLiveData.setValue(bitmap)
 }
 
 // ...
@@ -141,13 +152,17 @@ bitmap: Bitmap? -> thumbnailLiveData.setValue(bitmap)
 
 When creating a test specific ActivityResultRegistry, you must implement the onLaunch() method. Instead of calling startActivityForResult(), your test implementation can instead call dispatchResult() directly, providing the exact results you want to use in your test:
 
-val testRegistry = object : ActivityResultRegistry() {
+val testRegistry = object : ActivityResultRegistry() 
+{
+
 override fun <I, O> onLaunch(
 requestCode: Int,
 contract: ActivityResultContract<I, O>,
 input: I,
 options: ActivityOptionsCompat?
-) {
+) 
+
+{
 dispatchResult(requestCode, expectedResult)
 }
 }
@@ -166,14 +181,16 @@ requestCode: Int,
 contract: ActivityResultContract<I, O>,
 input: I,
 options: ActivityOptionsCompat?
-) {
+) 
+{
 dispatchResult(requestCode, expectedResult)
 }
 }
 
 // Use the launchFragmentInContainer method that takes a
 // lambda to construct the Fragment with the testRegistry
-with(launchFragmentInContainer { MyFragment(testRegistry) }) {
+with(launchFragmentInContainer { MyFragment(testRegistry) }) 
+{
 onFragment { fragment ->
 // Trigger the ActivityResultLauncher
 fragment.takePicture()
@@ -197,13 +214,17 @@ Contracts can optionally implement getSynchronousResult() if it is possible to d
 
 KOTLIN
 JAVA
-class PickRingtone : ActivityResultContract<Int, Uri?>() {
+
+class PickRingtone : ActivityResultContract<Int, Uri?>() 
+{
 override fun createIntent(context: Context, ringtoneType: Int) =
 Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
 putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, ringtoneType)
+
 }
 
-override fun parseResult(resultCode: Int, result: Intent?) : Uri? {
+override fun parseResult(resultCode: Int, result: Intent?) : Uri? 
+{
 if (resultCode != Activity.RESULT_OK) {
 return null
 }
@@ -215,7 +236,9 @@ If you do not need a custom contract, you can use the StartActivityForResult con
 
 KOTLIN
 JAVA
-val startForResult = registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
+val startForResult = registerForActivityResult(StartActivityForResult()) 
+{ 
+result: ActivityResult ->
 if (result.resultCode == Activity.RESULT_OK) {
 val intent = result.intent
 // Handle the Intent
@@ -245,7 +268,7 @@ startForResult.launch(Intent(this, ResultProducingActivity::class.java))
 
 ![Banner](https://github.com/MindorksOpenSource/Dagger-Hilt-Tutorial/raw/master/assets/banner-dagger-hilt.png)
 
-Dependency Injection on Android with Hilt
+## Dependency Injection on Android with Hilt
 
 Dependency injection (DI) is a technique widely used in programming and well suited to Android development, where dependencies are provided to a class instead of creating them itself. By following DI principles, you lay the groundwork for good app architecture, greater code reusability, and ease of testing. Have you ever tried manual dependency injection in your app? Even with many of the existing dependency injection libraries today, it requires a lot of boilerplate code as your project becomes larger, since you have to construct every class and its dependencies by hand, and create containers to reuse and manage dependencies.
 
