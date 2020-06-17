@@ -1,10 +1,9 @@
 package mobile.demo.resultapiwithhiltannonation
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
-import mobile.demo.resultapiwithhiltannonation.ui.main.MainFragment
+import mobile.demo.resultapiwithhiltannonation.ui.MainFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

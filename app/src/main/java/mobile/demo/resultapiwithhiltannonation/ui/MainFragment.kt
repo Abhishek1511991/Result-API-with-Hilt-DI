@@ -1,4 +1,4 @@
-package mobile.demo.resultapiwithhiltannonation.ui.main
+package mobile.demo.resultapiwithhiltannonation.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -10,37 +10,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.main_fragment.*
 import mobile.demo.resultapiwithhiltannonation.R
-import mobile.demo.resultapiwithhiltannonation.interfaces.ActivitiyResultInterface
+import mobile.demo.resultapiwithhiltannonation.hilt_DI.data.CameraCapture
 import mobile.demo.resultapiwithhiltannonation.result_api.MyLifecycleObserver
 import mobile.demo.resultapiwithhiltannonation.result_api.SimpleContract
+import mobile.demo.resultapiwithhiltannonation.result_api.interfaces.ActivitiyResultInterface
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
-class MainFragment : Fragment(), ActivitiyResultInterface {
+class MainFragment : Fragment(),
+    ActivitiyResultInterface {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() =
+            MainFragment()
 
     }
 
@@ -49,8 +43,7 @@ class MainFragment : Fragment(), ActivitiyResultInterface {
 
     lateinit var observer : MyLifecycleObserver
 
-
-    private lateinit var viewModel: MainViewModel
+    @Inject lateinit var cameraCapture: CameraCapture
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,11 +57,6 @@ class MainFragment : Fragment(), ActivitiyResultInterface {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -97,6 +85,9 @@ class MainFragment : Fragment(), ActivitiyResultInterface {
         take_pic_3?.setOnClickListener (object :View.OnClickListener
         {
             override fun onClick(v: View?) {
+
+                cameraCapture?.doCameraClick(simplePhotoClickContractRegistration,createImageFile())
+
 
             }
 

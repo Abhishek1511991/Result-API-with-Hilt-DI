@@ -1,4 +1,4 @@
-package mobile.demo.resultapiwithhiltannonation.interfaces
+package mobile.demo.resultapiwithhiltannonation.result_api.interfaces
 
 import android.graphics.Bitmap
 
